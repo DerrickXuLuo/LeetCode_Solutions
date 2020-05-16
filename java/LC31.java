@@ -32,6 +32,8 @@ public class LC31 {
         if (j == nums.length - 1){
             swap(nums, i - 1, j);
         }
+        //The substring from i to (nums.length - 1) is in descending order,
+        //so it should be reversed then it comes out to be the next greater element.
         reverse(nums, i, nums.length - 1);
     }
 
