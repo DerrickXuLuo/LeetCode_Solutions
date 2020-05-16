@@ -1,7 +1,7 @@
 public class LC34 {
     public static int[] searchRange(int[] nums, int target) {
         if (nums == null || nums.length == 0){
-            return new int[]{};
+            return new int[]{-1, -1};
         }
 
         int[] targetRange = new int[]{-1, -1};
@@ -18,7 +18,7 @@ public class LC34 {
     }
 
     private static int modifiedBSearch(int[] nums, int target, boolean left){
-        int l = 0, r = nums.length - 1;
+        int l = 0, r = nums.length;
 
         //If the left is equals to true, the method will return leftmost position of the target.
         //Otherwise, the method will return (rightmost position of the target + 1).
