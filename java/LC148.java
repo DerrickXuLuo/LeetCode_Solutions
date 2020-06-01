@@ -1,4 +1,3 @@
-
 /**
  * @Author Derrick
  * @CreateTime 5/31/2020 12:49 PM
@@ -75,6 +74,8 @@ public class LC148 {
             n++;
         }
 
+        //split and merge
+        //For loop: O(LogN); While loop: O(N)
         for (int step = 1; step < n; step <<= 1){
             ListNode prev = dummyNode;
             ListNode curr = dummyNode.next;
@@ -89,6 +90,11 @@ public class LC148 {
         return dummyNode.next;
     }
 
+    /**
+     * @param head
+     * @param step
+     * @return The head node of the right part.
+     */
     private ListNode split(ListNode head, int step){
         if (head == null){
             return null;
@@ -103,6 +109,12 @@ public class LC148 {
         return right;
     }
 
+    /**
+     * @param left
+     * @param right
+     * @param prev
+     * @return the last node of the merged list. Thus, the next merged sorted list can be appended to the current list.
+     */
     private ListNode mergeII(ListNode left, ListNode right, ListNode prev){
         ListNode curr = prev;
         while (left != null && right != null){
@@ -127,5 +139,4 @@ public class LC148 {
         }
         return curr;
     }
-
 }
