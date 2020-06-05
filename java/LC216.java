@@ -5,37 +5,36 @@
  * @Desc
  */
 public class LC216 {
-    public static List<List<Integer>> combinationSum3(int k, int n) {
+    public List<List<Integer>> combinationSum3(int k, int n) {
         List<List<Integer>> ans = new ArrayList<>();
-        for (int i = 1; i <= 9 - k + 1; i++){
-            List<Integer> list = new ArrayList<>();
-            list.add(i);
-            dfs(ans, k, n, 1, i, i + 1, list);
-        }
+        dfs(ans, new ArrayList<>(), k, n, 1);
         return ans;
     }
 
-    private static void dfs(List<List<Integer>> ans, int k, int n, int count, int sum, int num, List<Integer> list){
-        if (count == k && sum == n){
+    /**
+     * Time Complexity: Less than O(C(k, 9))
+     * @param ans
+     * @param list
+     * @param k
+     * @param n
+     * @param start
+     */
+    private void dfs(List<List<Integer>> ans, List<Integer> list, int k, int n, int start){
+        if (k == list.size() && n == 0){
             ans.add(new ArrayList<>(list));
             return;
-        }else if (count > k){
+        }else if (k < list.size()) {
             return;
         }
 
-        for (int i = num; i <= 9; i++){
-            if (sum + i <= n){
-                list.add(i);
-                dfs(ans, k, n, count + 1, sum + i, i + 1, list);
-                list.remove(list.size() - 1);
-            }else {
-                break;
-            }
+        for (int i = start; i <= n && i <= 9; i++){
+            list.add(i);
+            dfs(ans, list, k, n - i, i + 1);
+            list.remove(list.size() - 1);
         }
     }
 
     public static void main(String[] args){
-        combinationSum3(3, 7);
-
+//        combinationSum3(3, 7);
     }
 }
