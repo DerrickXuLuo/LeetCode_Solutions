@@ -35,18 +35,12 @@ public class Disk {
         TreeSet<Cell> treeSet = new TreeSet<>(new Comparator<Cell>() {
             @Override
             public int compare(Cell o1, Cell o2) {
-                if (o1.val - o2.val < 0){
-                    return -1;
-                }else if (o1.val - o2.val > 0){
-                    return 1;
-                }else {
-                    return 0;
-                }
+                return Integer.compare(o1.val - o2.val, 0);
             }
         });
 
         Map<Integer, Cell> map = new HashMap<>();
-        for (int i = 0; i + x < space.size(); i++){
+        for (int i = 0; i + x <= space.size(); i++){
             if (i == 0){
                 for (int j = i; j < i + x; j++){
                     Cell cell = new Cell(j, space.get(j));
@@ -54,9 +48,9 @@ public class Disk {
                     map.put(j, cell);
                 }
             }else {
-                Cell cell = new Cell(i + x, space.get(i + x));
+                Cell cell = new Cell(i + x - 1, space.get(i + x - 1));
                 treeSet.add(cell);
-                map.put(i + x, cell);
+                map.put(i + x - 1, cell);
             }
 
             list.add(treeSet.first().val);
