@@ -21,6 +21,61 @@ public class GridLand {
 
     static List<String> ans;
     static int count;
+    
+    /**
+     * Main idea: we can simply solve this problem by modifying the String consisting of "H" and "V".
+     * According to the description, an inhabitant can move horizontally or vertically to an adjacent cell, and the path
+     * between the origin and the destination should be minimum. So an inhabitant can only move to the right cell or down cell.
+     * In this case, the path will be a combination of specific numbers of "H" and "V". We just need to swap the "H" and "V" in the String
+     * then we can get the specific path which follows the alphabetical order.
+     * For example, if the journey is "2 2 1", the return string should be "HVHV" which is obtained by swap the second "H" and "V"
+     * in the initial path "HHVV".
+     * @param journeys
+     * @return
+     */
+    public static List<String> getSafePathsII(List<String> journeys) {
+        // Write your code here
+        ans = new ArrayList<>();
+        for (String journey : journeys){
+            String[] strings = journey.split(" ");
+            int x = Integer.parseInt(strings[0]), y = Integer.parseInt(strings[1]);
+            StringBuilder sb = new StringBuilder();
+            //Build the initial String consisting of "H" and "V"
+            for (int i = 0; i < x; i++){
+                sb.append("H");
+            }
+            for (int j = 0; j < y; j++){
+                sb.append("V");
+            }
+            ans.add(getAns(sb, Integer.parseInt(strings[2]), x, y));
+        }
+
+        return ans;
+    }
+
+    private static String getAns(StringBuilder sb, int index, int hNum, int vNum){
+        if (index == 0){
+            return sb.toString();
+        }
+
+        int section = index / vNum;
+        int mod = index % vNum;
+
+        for (int i = 0; i < section; i++){
+            sb = swap(sb, hNum - 1 - i, sb.length() - 1 - i);
+        }
+        sb = swap(sb, hNum - 1 - section, hNum - 1 - section + mod);
+
+        return sb.toString();
+    }
+
+    private static StringBuilder swap(StringBuilder sb, int org, int des){
+        char tmp = sb.charAt(org);
+        sb.setCharAt(org, sb.charAt(des));
+        sb.setCharAt(des, tmp);
+        return sb;
+    }
+    
 
     /**
      * Primitive idea: for each destination, we can find the target path by using dfs.
